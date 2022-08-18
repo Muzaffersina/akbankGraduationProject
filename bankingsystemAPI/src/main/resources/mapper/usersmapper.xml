@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msa.bankingsystem.dataAccess.user.IUserRepository">
+
+	<select id="loadUserByUsername" parameterType="string" resultType="UserEntity">
+		SELECT * FROM users WHERE username = #{username}
+	</select>
+	
+	<select id="getUserDetail" parameterType="string"
+		resultType="com.msa.bankingsystem.models.UserEntity">
+		SELECT * FROM users WHERE user_id = #{userId}
+	</select>
+
+	<insert id="save" parameterType="UserEntity" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		users(id,username,email,password,enabled,authorities)
+		VALUES
+		(#{id},#{username},#{email},#{password},#{enabled},#{authorities})
+	</insert>
+	
+	<select id="getByEmail" parameterType="string" resultType="com.msa.bankingsystem.models.UserEntity" >
+		SELECT * FROM users	WHERE email = #{email}
+	</select>
+	
+	<select id="getById" parameterType="Integer" resultType="com.msa.bankingsystem.models.UserEntity" >
+		SELECT * FROM users	WHERE id = #{id}
+	</select>
+		
+		
+	<update id="updateEnabled">
+		UPDATE users SET enabled = #{enabled}  WHERE id =#{id}
+	</update>
+</mapper>

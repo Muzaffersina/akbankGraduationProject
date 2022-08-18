@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+    <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.msa.bankingsystem.dataAccess.account.IAccountRepository">
+
+	<select id="getAll"
+		resultMap="withUserAndBank">
+		SELECT * FROM accounts
+	</select>
+
+	<select id="getByAccountNumber" parameterType="string" resultMap="withUserAndBank">
+		SELECT * FROM
+		accounts
+		WHERE account_number =
+		#{accountNumber}
+	</select>
+
+	<select id="getByAccountNumberWithUserAndBank" parameterType="string"
+		resultMap="withUserAndBank">
+		SELECT *,
+		accounts.id as account_id,
+		users.id as user_id,
+		banks.id as bank_id FROM accounts
+		INNER JOIN users ON users.id = accounts.user_id
+		INNER JOIN banks ON banks.id =
+		accounts.bank_id WHERE account_number =#{accountNumber}
+	</select>
+	
+	<select id="getByUserIdNumberWithUserAndBank" parameterType="Integer"
+		resultMap="withUserAndBank">
+		SELECT *,
+		accounts.id as account_id,
+		users.id as user_id,
+		banks.id as bank_id FROM accounts
+		INNER JOIN users ON users.id = accounts.user_id
+		INNER JOIN banks ON banks.id =
+		accounts.bank_id WHERE user_id =#{user_id}
+	</select>
+
+	<select id="getByAccountId" parameterType="string" resultMap="withUserAndBank">
+		SELECT * FROM accounts
+		WHERE id = #{id}
+	</select>
+
+	<insert id="save" parameterType="Account" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO
+		accounts(id,user_id,bank_id,account_number,type,balance,creation_date,last_update_date,is_deleted)
+		VALUES
+		(#{id},#{user.id},#{bank.id},#{accountNumber},#{type},#{balance},#{creationDate},#{lastUpdateDate},#{isDeleted})
+	</insert>
+
+	<update id="updateBalance" >
+		UPDATE accounts SET balance = #{amount} ,
+		last_update_date = #{lastUpdateDate} WHERE
+		account_number =
+		#{accountNumber}
+	</update>
+
+	<update id="updateDeletedColumn" >
+		UPDATE accounts SET is_deleted =
+		true ,
+		last_update_date = #{lastUpdateDate} WHERE account_number =
+		#{accountNumber}
+	</update>
+
+	<resultMap type="com.msa.bankingsystem.models.Account"
+		id="withUserAndBank" autoMapping="true">
+
+		<id column="id" property="id" />
+
+		<association property="user" autoMapping="true">
+			<id column="user_id" property="id" />
+		</association>
+
+		<association property="bank" autoMapping="true">
+			<id column="bank_id" property="id" />
+			<id column="name" property="name" />
+		</association>
+
+	</resultMap>
+
+
+</mapper>
