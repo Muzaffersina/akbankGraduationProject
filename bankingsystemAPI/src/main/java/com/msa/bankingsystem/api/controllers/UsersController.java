@@ -64,7 +64,7 @@ public class UsersController {
 	}
 
 	@PostMapping(path = "/register")
-	private ResponseEntity<DataResult<GetListUserEntityDto>> createAccount(
+	private ResponseEntity<DataResult<GetListUserEntityDto>> register(
 			@RequestBody @Valid CreateRegisterRequest createRegisterRequest) {
 
 		DataResult<GetListUserEntityDto> userDto;
