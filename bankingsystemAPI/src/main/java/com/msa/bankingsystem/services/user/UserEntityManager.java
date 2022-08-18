@@ -108,7 +108,7 @@ public class UserEntityManager implements IUserEntityService {
 	
 	private boolean checkUserExistsById(int id) {
 
-		if (this.iUserRepository.getById(id) == null) {
+		if (this.iUserRepository.getById(id) != null) {
 			return true;
 		}
 		throw new BusinessException(Messages.NOTFOUNDUSERBYID + id);
