@@ -6,7 +6,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 - npm install 
 - npm install bootstrap  
-- and  ng serve -o for a development server. The application automatically navigates to http://localhost:4200/login .If you change any of the source files, the application will be installed automatically.
+- and  ng serve -o for a development server. The application automatically navigates to http://localhost:4200/register .If you change any of the source files, the application will be installed automatically.
 
 ## Code scaffolding
 
