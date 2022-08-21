@@ -260,12 +260,12 @@ public class AccountManager implements IAccountService {
 					return this.exchangeChanger.calculateGoldSelling() * amount;
 				} else if (transferredAccountType.contains("USD")) { // -->> USD
 					double tryAmount = this.exchangeChanger.calculateGoldSelling() * amount;
-					return this.exchangeChanger.calculateExchange(senderAccountType, "TRY", tryAmount);
+					return this.exchangeChanger.calculateExchange("TRY",transferredAccountType, tryAmount);
 				}
 
 				else if (transferredAccountType.contains("EUR")) {
 					double tryAmount = this.exchangeChanger.calculateGoldSelling() * amount;
-					return this.exchangeChanger.calculateExchange(senderAccountType, "TRY", tryAmount); // EUR
+					return this.exchangeChanger.calculateExchange("TRY",transferredAccountType , tryAmount); // EUR
 				}
 
 			}
